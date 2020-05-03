@@ -9,32 +9,15 @@ class Pokemon
     @db = db
   end
   
-  def self.create_table
-    sql = <<-SQL
-      CREATE TABLE IF NOT EXISTS pokemons (
-      id INTEGER PRIMARY KEY,
-      name TEXT,
-      grade INTEGER
-      ) 
-        SQL
-    
-    DB[:conn].execute(sql)
-  end
-  
-  def self.drop_table
-    sql = <<-SQL
-      DROP TABLE pokemons
-      SQL
-    DB[:conn].execute(sql)
-  end
+ 
   
   def self.save(name, type, db)
     sql = <<-SQL
-      INSERT INTO pokemons (name, type, db)
+      INSERT INTO pokemon (name, type)
       VALUES (?, ?)
       SQL
-    DB[:conn].execute(sql, name, type, db) 
-    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM pokemons")[0][0]
+    db.execute(sql, name, type) 
+    @id = db.execute("SELECT last_insert_rowid() FROM pokemons")[0][0]
   end
   
   def self.create(name, type)
