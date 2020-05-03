@@ -35,7 +35,7 @@ class Pokemon
   def self.find(id, db)
     sql = "SELECT * FROM pokemon WHERE id = ?"
     result = db.execute(sql, id)[0]
-    self.new_from_db(result.flatten)
+    self.new_from_db(result)
   end
   
   def update
