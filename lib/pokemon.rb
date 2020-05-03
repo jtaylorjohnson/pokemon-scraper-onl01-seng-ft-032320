@@ -17,7 +17,7 @@ class Pokemon
       VALUES (?, ?)
       SQL
     db.execute(sql, name, type) 
-    @id = db.execute("SELECT last_insert_rowid() FROM pokemons")[0][0]
+    @id = db.execute("SELECT last_insert_rowid() FROM pokemon")[0][0]
   end
   
   def self.create(name, type)
@@ -35,13 +35,13 @@ class Pokemon
   end
   
   def self.find(name)
-    sql = "SELECT * FROM pokemons WHERE name = ?"
+    sql = "SELECT * FROM pokemon WHERE name = ?"
     result = DB[:conn].execute(sql, name)[0]
     self.new_from_db(result.flatten)
   end
   
   def update
-    sql = "UPDATE pokemons SET name = ?, type = ? WHERE id = ?"
+    sql = "UPDATE pokemon SET name = ?, type = ? WHERE id = ?"
     DB[:conn].execute(sql, self.name, self.grade, self.id)
   end
 
