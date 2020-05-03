@@ -9,8 +9,6 @@ class Pokemon
     @db = db
   end
   
- 
-  
   def self.save(name, type, db)
     sql = <<-SQL
       INSERT INTO pokemon (name, type)
@@ -27,11 +25,11 @@ class Pokemon
   end
   
   def self.new_from_db(row)
-  id = row[0]
-  name = row[1]
-  type = row[2]
-  student = self.new(id, name, grade)
-  student
+    id = row[0]
+    name = row[1]
+    type = row[2]
+    pokemon = self.new(id, name, type)
+    pokemon
   end
   
   def self.find(id, db)
@@ -42,7 +40,7 @@ class Pokemon
   
   def update
     sql = "UPDATE pokemon SET name = ?, type = ? WHERE id = ?"
-    DB[:conn].execute(sql, self.name, self.grade, self.id)
+    DB[:conn].execute(sql, self.name, self.type, self.id)
   end
 
 end
