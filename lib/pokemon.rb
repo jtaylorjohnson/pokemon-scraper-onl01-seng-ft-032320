@@ -23,19 +23,16 @@ class Pokemon
     pokemon.save
     pokemon
   end
+
   
-  def self.new_from_db(row)
-    id = row[0]
-    name = row[1]
-    type = row[2]
-    pokemon = self.new(id, name, type)
-    pokemon
-  end
-  
-  def self.find(id, db)
-    sql = "SELECT * FROM pokemon WHERE id = ?"
-    result = db.execute(sql, id)[0]
-    self.new_from_db(result)
+  def self.find(num, db)
+    pokemon = db.execute("SELECT * FROM pokemon WHERE id=?", [num])
+    new_pokemon = self.new(pokemon)
+    new_pokemon.id = pokemon[0][0]
+    new_pokemon.name = pokemon[0][1]
+    new_pokemon.type = pokemon[0][2]
+    new_pokemon.hp = pokemon[0][3]
+    return new_pokemon
   end
   
   def update
