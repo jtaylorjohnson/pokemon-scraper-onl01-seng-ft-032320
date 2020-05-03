@@ -34,9 +34,9 @@ class Pokemon
   student
   end
   
-  def self.find(name)
-    sql = "SELECT * FROM pokemon WHERE name = ?"
-    result = DB[:conn].execute(sql, name)[0]
+  def self.find(id)
+    sql = "SELECT * FROM pokemon WHERE id = ?"
+    result = DB[:conn].execute(sql, id)[0]
     self.new_from_db(result.flatten)
   end
   
